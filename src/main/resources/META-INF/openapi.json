@@ -1,0 +1,166 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "valtica-first-desing-api",
+        "version": "1.0.0",
+        "description": "Example - first desing api",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "Swagger API Team",
+            "url": "http://swagger.io",
+            "email": "apiteam@swagger.io"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://petstore.swagger.io/api"
+        }
+    ],
+    "paths": {
+        "/tracks": {
+            "summary": "Path used to manage the list of tracks.",
+            "description": "The REST endpoint/path used to list and create zero or more `Track` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.",
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Track"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Successful response - returns an array of `Track` entities."
+                    }
+                },
+                "operationId": "gettracks",
+                "summary": "List All tracks",
+                "description": "Gets a list of all `Track` entities."
+            },
+            "post": {
+                "requestBody": {
+                    "description": "A new `Track` to be created.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Track"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful response."
+                    }
+                },
+                "operationId": "createTrack",
+                "summary": "Create a Track",
+                "description": "Creates a new instance of a `Track`."
+            }
+        },
+        "/tracks/{trackId}": {
+            "summary": "Path used to manage a single Track.",
+            "description": "The REST endpoint/path used to get, update, and delete single instances of an `Track`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.",
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Track"
+                                }
+                            }
+                        },
+                        "description": "Successful response - returns a single `Track`."
+                    }
+                },
+                "operationId": "getTrack",
+                "summary": "Get a Track",
+                "description": "Gets the details of a single instance of a `Track`."
+            },
+            "put": {
+                "requestBody": {
+                    "description": "Updated `Track` information.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Track"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful response."
+                    }
+                },
+                "operationId": "updateTrack",
+                "summary": "Update a Track",
+                "description": "Updates an existing `Track`."
+            },
+            "delete": {
+                "responses": {
+                    "204": {
+                        "description": "Successful response."
+                    }
+                },
+                "operationId": "deleteTrack",
+                "summary": "Delete a Track",
+                "description": "Deletes an existing `Track`."
+            },
+            "parameters": [
+                {
+                    "name": "trackId",
+                    "description": "A unique identifier for a `Track`.",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        }
+    },
+    "components": {
+        "schemas": {
+            "Track": {
+                "description": "Sencillo de un cantante",
+                "required": [
+                    "Title",
+                    "Singer"
+                ],
+                "type": "object",
+                "properties": {
+                    "Title": {
+                        "description": "Titulo del sencillo",
+                        "type": "string"
+                    },
+                    "Singer": {
+                        "description": "Cantante",
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "Title": "some text",
+                    "Singer": "some text"
+                }
+            }
+        },
+        "securitySchemes": {
+            "keycloak": {
+                "openIdConnectUrl": "http://keycloak.valtica.com.co",
+                "type": "openIdConnect",
+                "description": "Keycloak"
+            }
+        }
+    }
+}
